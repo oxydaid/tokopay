@@ -3,19 +3,23 @@
 namespace Oxydaid\Tokopay;
 
 use Illuminate\Support\ServiceProvider;
+use Oxydaid\Tokopay\Services\Tokopay as TokopayService;
 
 class TokopayServiceProvider extends ServiceProvider
 {
     public function register()
     {
-        $this->mergeConfigFrom(__DIR__ . '/../config/tokopay.php', 'tokopay');
+        $this->app->singleton('tokopay', function () {
+            return new TokopayService();
+        });
+
+        $this->mergeConfigFrom(__DIR__ . '/config/tokopay.php', 'tokopay');
     }
 
     public function boot()
     {
-        // publish config
         $this->publishes([
-            __DIR__ . '/../config/tokopay.php' => config_path('tokopay.php'),
+            __DIR__ . '/config/tokopay.php' => config_path('tokopay.php'),
         ], 'config');
     }
 }

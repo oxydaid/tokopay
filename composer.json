@@ -13,7 +13,10 @@
         "laravel": {
             "providers": [
                 "Oxydaid\\Tokopay\\TokopayServiceProvider"
-            ]
+            ],
+            "aliases": {
+                "Tokopay": "Oxydaid\\Tokopay\\Facades\\Tokopay"
+            }
         }
     },
     "authors": [
