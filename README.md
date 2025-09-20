@@ -1,21 +1,104 @@
-MIT License
+Siap 👍 berikut versi **README.md full** dalam format markdown yang sudah rapi, codeblock aman, dan tested supaya di GitHub muncul tombol **copy code** serta tidak pecah lagi:
 
-Copyright (c) 2025 Oxyda Id
+````markdown
+# Laravel Tokopay
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+[![Latest Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](https://packagist.org/packages/oxydaid/tokopay)
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+Integrasi tidak resmi (unofficial) Payment Gateway [Tokopay](https://tokopay.id/) untuk Laravel.  
+Menyediakan service sederhana untuk membuat transaksi, mengecek status order, generate signature, validasi webhook, dan tersedia Facade agar lebih mudah digunakan.  
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+## ✨ Fitur
+- 🔑 Generate signature otomatis  
+- 🛡️ Validasi signature untuk webhook Tokopay  
+- 💳 Create transaction (POST `/v1/order/`)  
+- 🔍 Check order status (GET `/v1/order`)  
+- ⚡ Ringan, tanpa dependensi tambahan  
+- 🛠️ Mendukung Laravel Facade (`Tokopay::`)  
+
+## 📦 Instalasi
+
+Anda dapat menginstal paket ini melalui **Composer**:
+
+```bash
+composer require oxydaid/tokopay
+````
+
+## ⚙️ Konfigurasi
+
+Publikasikan file konfigurasi:
+
+```bash
+php artisan vendor:publish --tag=config --provider="Oxydaid\\Tokopay\\TokopayServiceProvider"
+```
+
+Atur kredensial Tokopay Anda di file `.env`:
+
+```env
+TOKOPAY_MERCHANT_ID=your_merchant_id
+TOKOPAY_SECRET_KEY=your_secret_key
+TOKOPAY_BASE_URL=https://api.tokopay.id
+```
+
+## 🚀 Penggunaan
+
+### 1. Membuat Transaksi
+
+```php
+use Tokopay;
+
+$refId = 'INV12345';
+$signature = Tokopay::generateSignature($refId);
+
+$data = [
+    'merchant_id'    => config('tokopay.merchant_id'),
+    'kode_channel'   => 'QRIS',
+    'reff_id'        => $refId,
+    'amount'         => 160000,
+    'customer_name'  => "Joko Susilo",
+    'customer_email' => "joko.susilo98@gmail.com",
+    'customer_phone' => "082277665544",
+    'redirect_url'   => route('payment.success'),
+    'expired_ts'     => 0,
+    'signature'      => $signature,
+];
+
+$response = Tokopay::createTransaction($data);
+```
+
+### 2. Cek Status Order
+
+```php
+$response = Tokopay::checkOrderStatus(
+    config('tokopay.merchant_id'),
+    config('tokopay.secret_key'),
+    'INV12345',
+    160000,
+    'QRIS'
+);
+```
+
+### 3. Webhook Signature Validation
+
+```php
+use Illuminate\Http\Request;
+use Tokopay;
+
+public function handleWebhook(Request $request)
+{
+    if (! Tokopay::validateSignature($request->reff_id, $request->signature)) {
+        return response()->json(['status' => false, 'message' => 'Invalid signature'], 400);
+    }
+
+    // Signature valid → update status transaksi sesuai $request->input('status')
+
+    return response()->json(['status' => true]);
+}
+```
+
+Webhook harus merespons JSON berikut agar dianggap sukses:
+
+```json
+{ "status": true }
+```
