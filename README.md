@@ -1,8 +1,4 @@
-Siap 👍 berikut versi **README.md full** dalam format markdown yang sudah rapi, codeblock aman, dan tested supaya di GitHub muncul tombol **copy code** serta tidak pecah lagi:
-
-````markdown
 # Laravel Tokopay
-
 [![Latest Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](https://packagist.org/packages/oxydaid/tokopay)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
