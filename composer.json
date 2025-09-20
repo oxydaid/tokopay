@@ -1,0 +1,28 @@
+{
+    "name": "oxydaid/tokopay",
+    "description": "Laravel Tokopay Payment Gateway Integration",
+    "version": "1.0.0",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Oxydaid\\Tokopay\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Oxydaid\\Tokopay\\TokopayServiceProvider"
+            ]
+        }
+    },
+    "authors": [
+        {
+            "name": "oxydaid",
+            "email": "oxydaid@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "require": {}
+}
