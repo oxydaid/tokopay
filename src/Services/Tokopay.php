@@ -21,6 +21,12 @@ class Tokopay
         return md5($codeSignature);
     }
 
+    public function validateSignature($refID, $signature)
+    {
+        $expected = $this->generateSignature($refID);
+        return hash_equals($expected, $signature);
+    }
+
     public function createTransaction(array $data)
     {
         $ch = curl_init();
