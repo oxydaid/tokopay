@@ -17,8 +17,5 @@ class TokopayServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__ . '/../config/tokopay.php' => config_path('tokopay.php'),
         ], 'config');
-
-        // load routes
-        $this->loadRoutesFrom(__DIR__ . '/../routes/api.php');
     }
 }
