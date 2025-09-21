@@ -1,6 +1,6 @@
 <?php
 
-namespace Oxydaid\Tokopay\Facades;
+namespace Oxydaid\Tokopay;
 
 use Illuminate\Support\Facades\Facade;
 

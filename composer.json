@@ -1,31 +1,37 @@
 {
-    "name": "oxydaid/tokopay",
-    "description": "Laravel Tokopay Payment Gateway Integration",
-    "version": "1.0.0",
-    "type": "library",
-    "license": "MIT",
-    "autoload": {
-        "psr-4": {
-            "Oxydaid\\Tokopay\\": "src/"
-        }
-    },
-    "extra": {
-        "laravel": {
-            "providers": [
-                "Oxydaid\\Tokopay\\TokopayServiceProvider"
-            ],
-            "aliases": {
-                "Tokopay": "Oxydaid\\Tokopay\\Facades\\Tokopay"
-            }
-        }
-    },
-    "authors": [
-        {
-            "name": "oxydaid",
-            "email": "oxydaid@gmail.com"
-        }
-    ],
-    "minimum-stability": "dev",
-    "prefer-stable": true,
-    "require": {}
+  "name": "oxydaid/tokopay",
+  "description": "Laravel Tokopay Payment Gateway Integration",
+  "version": "1.0.0",
+  "type": "library",
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "Oxydaid\\Tokopay\\": "src/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Oxydaid\\Tokopay\\TokopayServiceProvider"
+      ],
+      "aliases": {
+        "Tokopay": "Oxydaid\\Tokopay\\TokopayFacade"
+      }
+    }
+  },
+  "authors": [
+    {
+      "name": "oxydaid",
+      "email": "oxydaid@gmail.com"
+    }
+  ],
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "require": {
+    "php": "^8.0",
+    "illuminate/support": "^9.0|^10.0|^11.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^10.0"
+}
 }
