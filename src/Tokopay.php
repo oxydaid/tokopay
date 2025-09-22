@@ -1,6 +1,6 @@
 <?php
 
-namespace Oxydaid\Tokopay\Services;
+namespace Oxydaid\Tokopay;
 
 class Tokopay
 {

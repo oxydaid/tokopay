@@ -3,7 +3,7 @@
 namespace Oxydaid\Tokopay;
 
 use Illuminate\Support\ServiceProvider;
-use Oxydaid\Tokopay\Services\Tokopay as TokopayService;
+use Oxydaid\Tokopay\Tokopay as TokopayService;
 
 class TokopayServiceProvider extends ServiceProvider
 {
